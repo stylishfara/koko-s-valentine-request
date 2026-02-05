@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        display: ["Playfair Display", "serif"],
+        body: ["Inter", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -47,6 +51,15 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Valentine's custom colors
+        pink: {
+          soft: "hsl(var(--pink-soft))",
+          medium: "hsl(var(--pink-medium))",
+          deep: "hsl(var(--pink-deep))",
+        },
+        cream: "hsl(var(--cream))",
+        rose: "hsl(var(--rose))",
+        gold: "hsl(var(--gold))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
