@@ -1,38 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Heart } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import BackButton from '@/components/BackButton';
+
+// Import couple photos
+import couple1 from '@/assets/couple-1.jpg';
+import couple2 from '@/assets/couple-2.jpg';
+import couple3 from '@/assets/couple-3.png';
+import couple4 from '@/assets/couple-4.jpg';
+import couple5 from '@/assets/couple-5.png';
+import couple6 from '@/assets/couple-6.png';
+import couple7 from '@/assets/couple-7.png';
 
 interface SlideshowPageProps {
   onBack: () => void;
 }
 
-// Placeholder images - replace with your actual couple photos
 const slides = [
   {
     id: 1,
-    placeholder: true,
-    caption: "Our first adventure together 💕",
+    image: couple1,
+    caption: "Together we shine ✨",
   },
   {
     id: 2,
-    placeholder: true,
-    caption: "That perfect sunset moment 🌅",
+    image: couple2,
+    caption: "The moment you stole my heart 💐",
   },
   {
     id: 3,
-    placeholder: true,
-    caption: "Making memories with you ✨",
+    image: couple3,
+    caption: "Our love story, animated 💕",
   },
   {
     id: 4,
-    placeholder: true,
-    caption: "My favorite person 💛",
+    image: couple4,
+    caption: "Laughing with you is my favorite 💛",
   },
   {
     id: 5,
-    placeholder: true,
-    caption: "Forever grateful for you 💕",
+    image: couple5,
+    caption: "Us against the world 💍",
+  },
+  {
+    id: 6,
+    image: couple6,
+    caption: "Sunday vibes with my love 🚗",
+  },
+  {
+    id: 7,
+    image: couple7,
+    caption: "Forever my person 💙❤️💚",
   },
 ];
 
@@ -73,18 +90,12 @@ const SlideshowPage: React.FC<SlideshowPageProps> = ({ onBack }) => {
       <div className="w-full max-w-lg mx-auto">
         {/* Image container */}
         <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-card shadow-2xl mb-6">
-          {/* Placeholder or actual image */}
-          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-pink-soft to-cream">
-            <div className="text-center p-8">
-              <Heart size={64} className="text-primary/30 fill-primary/20 mx-auto mb-4" />
-              <p className="text-muted-foreground text-sm">
-                Add your photo here
-              </p>
-              <p className="text-muted-foreground/60 text-xs mt-2">
-                Photo {currentSlide + 1} of {slides.length}
-              </p>
-            </div>
-          </div>
+          {/* Actual image */}
+          <img
+            src={slides[currentSlide].image}
+            alt={slides[currentSlide].caption}
+            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
+          />
 
           {/* Navigation arrows */}
           <button
