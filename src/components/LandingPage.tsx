@@ -6,8 +6,8 @@ interface LandingPageProps {
   onAccept: () => void;
 }
 
-const confirmationStages = [
-  "Yes",
+const noButtonStages = [
+  "No",
   "Are you sure?",
   "Please",
   "Pretty please",
@@ -15,66 +15,86 @@ const confirmationStages = [
 ];
 
 const LandingPage: React.FC<LandingPageProps> = ({ onAccept }) => {
-  const [stage, setStage] = useState(0);
+  const [noStage, setNoStage] = useState(0);
   const [noButtonOffset, setNoButtonOffset] = useState({ x: 0, y: 0 });
-  const [wiggle, setWiggle] = useState(false);
 
   const handleYesClick = () => {
-    if (stage < confirmationStages.length - 1) {
-      setStage(stage + 1);
+    // Yes goes straight to page 2
+    onAccept();
+  };
+
+  const handleNoClick = () => {
+    if (noStage < noButtonStages.length - 1) {
+      setNoStage(noStage + 1);
+      // Make the No button wiggle/move slightly
+      const newX = (Math.random() - 0.5) * 50;
+      const newY = (Math.random() - 0.5) * 30;
+      setNoButtonOffset({ x: newX, y: newY });
     } else {
+      // After all stages, just accept
       onAccept();
     }
   };
 
-  const handleNoHover = () => {
-    // Make the No button run away
-    const newX = (Math.random() - 0.5) * 200;
-    const newY = (Math.random() - 0.5) * 100;
-    setNoButtonOffset({ x: newX, y: newY });
-    setWiggle(true);
-    setTimeout(() => setWiggle(false), 500);
-  };
-
   return (
     <div className="min-h-screen valentine-gradient flex flex-col items-center justify-center px-6 relative overflow-hidden">
-      {/* Decorative heart */}
-      <div className="mb-8 animate-gentle-float">
+      {/* Decorative dots at top */}
+      <div className="absolute top-20 flex gap-1.5">
+        <span className="w-1.5 h-1.5 rounded-full bg-primary/30"></span>
+        <span className="w-1.5 h-1.5 rounded-full bg-primary/30"></span>
+        <span className="w-1.5 h-1.5 rounded-full bg-primary/30"></span>
+        <span className="w-1.5 h-1.5 rounded-full bg-primary/30"></span>
+      </div>
+
+      {/* Large circular heart container */}
+      <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-card shadow-lg flex items-center justify-center mb-10 animate-fade-in-up">
         <Heart 
-          size={64} 
-          className="text-primary fill-primary animate-pulse-soft heart-shadow"
-          style={{ filter: 'drop-shadow(0 4px 20px hsl(350 80% 72% / 0.4))' }}
+          size={80} 
+          className="text-primary fill-primary"
         />
       </div>
 
       {/* Main headline */}
-      <h1 className="font-display text-3xl sm:text-4xl md:text-5xl text-center text-foreground mb-4 animate-fade-in-up">
-        Will you be my Valentine,
+      <h1 className="font-display text-3xl sm:text-4xl text-center text-foreground mb-2 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+        Will you be my
       </h1>
-      <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-center text-gradient-rose mb-12 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-        Koko?
+      <h2 className="font-display text-3xl sm:text-4xl text-center mb-1 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+        valentine <span className="text-primary">koko</span>?
       </h2>
+      
+      {/* Small decorative heart */}
+      <Heart size={16} className="text-primary fill-primary my-2 animate-pulse-soft" />
+      
+      {/* Subtitle */}
+      <p className="text-muted-foreground text-base mb-12 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+        This will mean a lot to me
+      </p>
 
-      {/* Subtitle hint when progressing */}
-      {stage > 0 && (
-        <p className="text-muted-foreground text-sm mb-6 animate-fade-in-up">
-          Just a little more... 💕
-        </p>
-      )}
+      {/* Floating decorative heart */}
+      <div className="absolute right-[20%] top-[55%]">
+        <Heart size={20} className="text-primary/40 fill-primary/30 animate-gentle-float" />
+      </div>
 
       {/* Action buttons */}
-      <div className="flex flex-col sm:flex-row gap-4 items-center animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+      <div className="flex flex-col gap-4 w-full max-w-sm animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+        {/* Yes button - goes straight to page 2 */}
         <Button
           variant="valentine"
           size="xl"
           onClick={handleYesClick}
-          className={`min-w-[180px] ${stage > 0 ? 'animate-shimmer' : ''}`}
+          className="w-full rounded-full text-lg"
         >
-          {confirmationStages[stage]}
+          Yes, I'd love to!
         </Button>
 
+        {/* Small heart between buttons */}
+        <div className="flex justify-center -my-1">
+          <Heart size={14} className="text-primary/50 fill-primary/40" />
+        </div>
+
+        {/* No button - shows stages */}
         <div
-          className="relative transition-transform duration-300"
+          className="transition-transform duration-300"
           style={{
             transform: `translate(${noButtonOffset.x}px, ${noButtonOffset.y}px)`,
           }}
@@ -82,20 +102,23 @@ const LandingPage: React.FC<LandingPageProps> = ({ onAccept }) => {
           <Button
             variant="valentineOutline"
             size="xl"
-            onMouseEnter={handleNoHover}
-            onTouchStart={handleNoHover}
-            className={`min-w-[180px] ${wiggle ? 'animate-wiggle' : ''}`}
+            onClick={handleNoClick}
+            className={`w-full rounded-full text-lg ${noStage > 0 ? 'border-primary/60' : ''}`}
           >
-            No
+            {noButtonStages[noStage]}
           </Button>
         </div>
       </div>
 
-      {/* Small decorative elements */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-3 opacity-30">
-        <Heart size={12} className="text-primary fill-primary" />
-        <Heart size={16} className="text-primary fill-primary" />
-        <Heart size={12} className="text-primary fill-primary" />
+      {/* Decorative hearts at left */}
+      <div className="absolute left-[10%] top-[45%]">
+        <Heart size={18} className="text-primary/30 fill-primary/20 animate-gentle-float" style={{ animationDelay: '0.5s' }} />
+      </div>
+
+      {/* Bottom decorative hearts */}
+      <div className="absolute bottom-20 flex gap-8 items-end">
+        <Heart size={18} className="text-primary/20 fill-transparent stroke-primary/30" strokeWidth={1.5} />
+        <Heart size={22} className="text-primary/30 fill-primary/20" />
       </div>
     </div>
   );
