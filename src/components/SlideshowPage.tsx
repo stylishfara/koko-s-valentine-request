@@ -86,6 +86,11 @@ const SlideshowPage: React.FC<SlideshowPageProps> = ({ onBack }) => {
     <div className="min-h-screen valentine-gradient flex flex-col items-center justify-center px-4 py-20 relative overflow-hidden">
       <BackButton onClick={onBack} />
 
+      {/* Love message */}
+      <p className="text-center font-display text-xl md:text-2xl text-foreground mb-8 max-w-md px-4">
+        I hope you know you are truly loved, not just today but always ❤️
+      </p>
+
       {/* Slideshow container */}
       <div className="w-full max-w-lg mx-auto">
         {/* Image container */}
