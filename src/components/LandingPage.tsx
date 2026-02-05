@@ -16,22 +16,15 @@ const noButtonStages = [
 
 const LandingPage: React.FC<LandingPageProps> = ({ onAccept }) => {
   const [noStage, setNoStage] = useState(0);
-  const [noButtonOffset, setNoButtonOffset] = useState({ x: 0, y: 0 });
 
   const handleYesClick = () => {
-    // Yes goes straight to page 2
     onAccept();
   };
 
   const handleNoClick = () => {
     if (noStage < noButtonStages.length - 1) {
       setNoStage(noStage + 1);
-      // Make the No button wiggle/move slightly
-      const newX = (Math.random() - 0.5) * 50;
-      const newY = (Math.random() - 0.5) * 30;
-      setNoButtonOffset({ x: newX, y: newY });
     } else {
-      // After all stages, just accept
       onAccept();
     }
   };
@@ -93,21 +86,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onAccept }) => {
         </div>
 
         {/* No button - shows stages */}
-        <div
-          className="transition-transform duration-300"
-          style={{
-            transform: `translate(${noButtonOffset.x}px, ${noButtonOffset.y}px)`,
-          }}
+        <Button
+          variant="valentineOutline"
+          size="xl"
+          onClick={handleNoClick}
+          className={`w-full rounded-full text-lg ${noStage > 0 ? 'border-primary/60' : ''}`}
         >
-          <Button
-            variant="valentineOutline"
-            size="xl"
-            onClick={handleNoClick}
-            className={`w-full rounded-full text-lg ${noStage > 0 ? 'border-primary/60' : ''}`}
-          >
-            {noButtonStages[noStage]}
-          </Button>
-        </div>
+          {noButtonStages[noStage]}
+        </Button>
       </div>
 
       {/* Decorative hearts at left */}
