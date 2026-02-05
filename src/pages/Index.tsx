@@ -1,12 +1,48 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import React, { useState } from 'react';
+import FloatingHearts from '@/components/FloatingHearts';
+import LandingPage from '@/components/LandingPage';
+import ConfirmationPage from '@/components/ConfirmationPage';
+import SlideshowPage from '@/components/SlideshowPage';
 
-const Index = () => {
+type Page = 'landing' | 'confirmation' | 'slideshow';
+
+const Index: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState<Page>('landing');
+
+  const handleAccept = () => {
+    setCurrentPage('confirmation');
+  };
+
+  const handleStartSlideshow = () => {
+    setCurrentPage('slideshow');
+  };
+
+  const handleBackToLanding = () => {
+    setCurrentPage('landing');
+  };
+
+  const handleBackToConfirmation = () => {
+    setCurrentPage('confirmation');
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="relative">
+      <FloatingHearts />
+      
+      {currentPage === 'landing' && (
+        <LandingPage onAccept={handleAccept} />
+      )}
+      
+      {currentPage === 'confirmation' && (
+        <ConfirmationPage 
+          onStartSlideshow={handleStartSlideshow} 
+          onBack={handleBackToLanding}
+        />
+      )}
+      
+      {currentPage === 'slideshow' && (
+        <SlideshowPage onBack={handleBackToLanding} />
+      )}
     </div>
   );
 };
