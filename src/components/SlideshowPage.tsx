@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Heart } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ChevronLeft, ChevronRight, Heart, Volume2, VolumeX } from 'lucide-react';
 import BackButton from '@/components/BackButton';
+import loveInstrumental from '@/assets/love-instrumental.mp3';
 
 // Import couple photos
 import couple1 from '@/assets/couple-1.jpg';
@@ -56,6 +57,28 @@ const slides = [
 const SlideshowPage: React.FC<SlideshowPageProps> = ({ onBack }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Background music
+  useEffect(() => {
+    const audio = new Audio(loveInstrumental);
+    audio.loop = true;
+    audio.volume = 0.3;
+    audioRef.current = audio;
+    audio.play().catch(() => {});
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, []);
+
+  const toggleMute = () => {
+    if (audioRef.current) {
+      audioRef.current.muted = !audioRef.current.muted;
+      setIsMuted(!isMuted);
+    }
+  };
 
   useEffect(() => {
     if (!isAutoPlaying) return;
@@ -86,7 +109,14 @@ const SlideshowPage: React.FC<SlideshowPageProps> = ({ onBack }) => {
     <div className="min-h-screen valentine-gradient flex flex-col items-center justify-center px-4 py-20 relative overflow-hidden">
       <BackButton onClick={onBack} />
 
-      {/* Love message */}
+      {/* Music toggle */}
+      <button
+        onClick={toggleMute}
+        className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-card/80 backdrop-blur-sm flex items-center justify-center text-foreground/70 hover:text-foreground hover:bg-card transition-all"
+        aria-label={isMuted ? 'Unmute music' : 'Mute music'}
+      >
+        {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+      </button>
       <p className="text-center font-display text-xl md:text-2xl text-foreground mb-8 max-w-md px-4">
         I hope you know you are truly loved, not just today but always ❤️
       </p>
