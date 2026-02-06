@@ -9,8 +9,8 @@ import couple2 from '@/assets/couple-2.jpg';
 import couple3 from '@/assets/couple-3.png';
 import couple4 from '@/assets/couple-4.jpg';
 import couple5 from '@/assets/couple-5.png';
-import couple6 from '@/assets/couple-6.png';
 import couple7 from '@/assets/couple-7.png';
+import couple8 from '@/assets/couple-8.jpg';
 
 interface SlideshowPageProps {
   onBack: () => void;
@@ -44,13 +44,13 @@ const slides = [
   },
   {
     id: 6,
-    image: couple6,
-    caption: "Sunday vibes with my love 🚗",
+    image: couple7,
+    caption: "Forever my person 💙❤️💚",
   },
   {
     id: 7,
-    image: couple7,
-    caption: "Forever my person 💙❤️💚",
+    image: couple8,
+    caption: "My ride or die 💙❤️💚",
   },
 ];
 
