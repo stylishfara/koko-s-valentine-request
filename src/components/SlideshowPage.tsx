@@ -117,8 +117,11 @@ const SlideshowPage: React.FC<SlideshowPageProps> = ({ onBack }) => {
       >
         {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
       </button>
-      <p className="text-center font-display text-xl md:text-2xl text-foreground mb-8 max-w-md px-4">
+      <p className="text-center font-display text-xl md:text-2xl text-foreground mb-2 max-w-md px-4">
         I hope you know you are truly loved, not just today but always ❤️
+      </p>
+      <p className="text-center text-muted-foreground text-sm mb-8">
+        Enjoy this slideshow 🎞️
       </p>
 
       {/* Slideshow container */}
