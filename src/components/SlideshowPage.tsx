@@ -9,7 +9,7 @@ import couple2 from '@/assets/couple-2.jpg';
 import couple3 from '@/assets/couple-3.png';
 import couple4 from '@/assets/couple-4.jpg';
 import couple5 from '@/assets/couple-5.png';
-import couple7 from '@/assets/couple-7.png';
+
 import couple8 from '@/assets/couple-8.jpg';
 import couple9 from '@/assets/couple-9.jpg';
 import couple10 from '@/assets/couple-10.jpg';
@@ -43,11 +43,6 @@ const slides = [
     id: 5,
     image: couple5,
     caption: "Us against the world 💍",
-  },
-  {
-    id: 6,
-    image: couple7,
-    caption: "Forever my person 💙❤️💚",
   },
   {
     id: 7,
