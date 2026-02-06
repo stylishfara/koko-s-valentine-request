@@ -27,7 +27,7 @@ const slides = [
   {
     id: 2,
     image: couple2,
-    caption: "The moment you stole my heart 💐",
+    caption: "Surprise of the year 💐",
   },
   {
     id: 3,
@@ -37,7 +37,7 @@ const slides = [
   {
     id: 4,
     image: couple4,
-    caption: "Laughing with you is my favorite 💛",
+    caption: "Yeah, show off 💛",
   },
   {
     id: 5,
@@ -57,7 +57,7 @@ const slides = [
   {
     id: 9,
     image: couple10,
-    caption: "You and me, always ✨",
+    caption: "The secret Warri trip 😃",
   },
 ];
 
