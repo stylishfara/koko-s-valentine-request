@@ -25,12 +25,12 @@ const Index: React.FC = () => {
       {currentPage === 'confirmation' && (
         <ConfirmationPage 
           onStartSlideshow={() => setCurrentPage('slideshow')} 
-          onBack={() => setCurrentPage('landing')}
+          onBack={() => setCurrentPage('envelope')}
         />
       )}
       
       {currentPage === 'slideshow' && (
-        <SlideshowPage onBack={() => setCurrentPage('landing')} />
+        <SlideshowPage onBack={() => setCurrentPage('envelope')} />
       )}
     </div>
   );
