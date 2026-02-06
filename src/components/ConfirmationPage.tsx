@@ -43,7 +43,7 @@ const ConfirmationPage: React.FC<ConfirmationPageProps> = ({ onStartSlideshow, o
         style={{ animationDelay: '0.4s' }}
       >
         <Sparkles size={20} />
-        Start Slideshow
+        Enjoy this slideshow
       </Button>
 
       {/* Decorative bottom hearts */}
